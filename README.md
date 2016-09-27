@@ -22,7 +22,6 @@ http://dev.classmethod.jp/server-side/install-elixir-to-mac/
 (require 'elixir-mode)
 (require 'alchemist)
 (add-hook 'elixir-mode-hook 'ac-alchemist-setup)
-
 ```
 
 ## Alchemist
@@ -40,3 +39,11 @@ http://alchemist.readthedocs.io/en/latest/
 ### マークしているリージョンの評価
 
 `C-c a i b`
+
+### ファイル名を指定して実行
+
+`C-c a e f`
+
+### キーバインドまとめ参考
+
+http://qiita.com/ak-ymst/items/9b1514710f8ff4442471
