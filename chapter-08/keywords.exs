@@ -10,7 +10,5 @@ defmodule Canvas do
     IO.puts "Pattern: #{Keyword.get(options, :pattern, "solid")}"
     IO.puts "Style: #{inspect Keyword.get_values(options, :style)}"
   end
-
-  Canvas.draw_text("hello",fg: "red", style: "italic", style: "bold")
-
+  #Canvas.draw_text("hello",fg: "red", style: "italic", style: "bold")
 end
