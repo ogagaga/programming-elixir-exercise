@@ -1,11 +1,15 @@
 defmodule Countdown do
   def sleep(seconds) do
+    # メッセージ待ち受け p163
     receive do
+      # メッセージがこなかった場合にnilを設定する
       after seconds*1000 -> nil
     end
   end
 
   def say(text) do
+    # spawn は プロセスを立ち上げて、処理を実行させることができる
+    # ここでは OS X の say コマンドを実行している
     spawn fn -> :os.cmd('say #{text}') end
   end
 
