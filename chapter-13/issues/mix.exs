@@ -26,7 +26,14 @@ defmodule Issues.Mixfile do
   #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
   #
   # Type "mix help deps" for more examples and options
+  #
+  # 初回はパッケージ管理ツールhexがインストールされていなので、
+  # Could not find hex, which is needed to build dependency :httpoison
+  # Shall I Install hex? [Y/n]
+  # と聞かれるのでYを選択して、インストールする
   defp deps do
-    []
+    [
+      { :httpoison, "~> 0.8" }
+    ]
   end
 end
