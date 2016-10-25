@@ -1,7 +1,4 @@
 defmodule Issues.CLI do
-  import Issues.TableFormatter, only: [ print_table_for_columns: 2 ]
-
-  @default_count 4
 
   @moduledoc """
   Handle the command line parsing and the dispatch to
@@ -9,11 +6,37 @@ defmodule Issues.CLI do
   table of the last _n_ issues in a github project
   """
 
+  @default_count 4
+
+  import Issues.TableFormatter, only: [ print_table_for_columns: 2 ]
+
   def main(argv) do
-    # process(parse_args(argv))
     argv
     |> parse_args
     |> process
+  end
+
+  @doc """
+  `argv` can be -h or --help, which returns   `:help`.
+
+  Otherwise it is a github user name, project name, and (optionally)
+  the number of entries to format
+
+  Return a tuple of `{ user, project, count }`, or `nil` if help was given.
+  """
+
+  def parse_args(argv) do
+    parse = OptionParser.parse(argv, swiches: [help: :boolean],
+      aliases: [h: :help])
+    case parse do
+      { [help: true], _, _ }
+        -> :help
+      { _, [user, project, count], _ }
+        -> {user, project, String.to_integer(count)}
+      { _, [user, project], _ }
+        -> {user, project, @default_count}
+      _ -> :help
+    end
   end
 
   def process(:help) do
@@ -48,28 +71,5 @@ defmodule Issues.CLI do
     {_, message} = List.keyfind(error, "message", 0)
     IO.puts "Error fetching from Github: #{message}"
     System.halt(2)
-  end
-
-  @doc """
-  'argv' can be -h or --help, which returns :help.
-
-  Otherwise it is a github user name, project name, and (optionally)
-  the number of entries to format.
-
-  Return a tuple of '{ user, project, count }', or ':help' if help was given.
-  """
-
-  def parse_args(argv) do
-    parse = OptionParser.parse(argv, swiches: [help: :boolean],
-      aliases: [h: :help])
-    case parse do
-      { [help: true], _, _ }
-        -> :help
-      { _, [user, project, count], _ }
-        -> {user, project, String.to_integer(count)}
-      { _, [user, project], _ }
-        -> {user, project, @default_count}
-      _ -> :help
-    end
   end
 end
