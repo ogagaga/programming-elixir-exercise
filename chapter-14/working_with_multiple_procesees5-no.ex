@@ -1,14 +1,9 @@
-defmodule Exercise3 do
-  # spawn_link(Exercise3, :child, [self]) は
-  # spawn_link(__MODULE__, :child, [self]) と書いてもよさそう
-
-  # IO.puts で出力している箇所はLoggerに置き換えても良さそう(require Logger)
-
+defmodule Exercise5 do
   import :timer, only: [ sleep: 1 ]
 
   def run do
     # 親プロセスへメッセージを送信する
-    spawn_link(Exercise3, :child, [self])
+    spawn_monitor(Exercise5, :child, [self])
 
     sleep(500)
 
@@ -28,7 +23,8 @@ defmodule Exercise3 do
 
   def child(pid) do
     send(pid, "I am child process...! ")
+    raise RuntimeError
   end
 end
 
-Exercise3.run
+Exercise5.run
