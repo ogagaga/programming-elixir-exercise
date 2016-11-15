@@ -15,6 +15,11 @@ defmodule Sequence.Server do
   # def handle_call({:factors, number}, _, _) do
   #   { :reply, { :factors_of, number, factors(number)}, [] }
   # end
+
+  # 返事を必要としない場合
+  def handle_cast({:increment_number, delta}, current_number) do
+    { :noreply, current_number + delta}
+  end
 end
 
 # bash-3.2$ iex -S mix
@@ -59,3 +64,17 @@ end
 # 999
 # iex(8)> GenServer.call(pid, :next_number)      
 # 1000
+
+# bash-3.2$ iex -S mix
+# Erlang/OTP 19 [erts-8.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false] [dtrace]
+
+# Compiling 1 file (.ex)
+# Interactive Elixir (1.3.4) - press Ctrl+C to exit (type h() ENTER for help)
+# iex(1)> { :ok, pid } = GenServer.start_link(Sequence.Server, 100)
+# {:ok, #PID<0.119.0>}
+# iex(2)> GenServer.call(pid, :next_number)
+# 100
+# iex(3)> GenServer.cast(pid, {:increment_number, 200})
+# :ok
+# iex(4)> GenServer.call(pid, :next_number)            
+# 301
