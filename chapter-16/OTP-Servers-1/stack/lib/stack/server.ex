@@ -5,6 +5,11 @@ defmodule Stack.Server do
     [item | tail] = state
     {:reply, item, tail}
   end
+
+  # OTP-Servers-2
+  def handle_cast({:push, item}, state) do
+    {:noreply, [item | state]}
+  end
 end
 
 # bash-3.2$ iex -S mix
