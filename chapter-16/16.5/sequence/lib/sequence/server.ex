@@ -24,6 +24,6 @@ defmodule Sequence.Server do
   end
 
   def format_status(_reason, [ _pdict, state ]) do
-    [data: [{’State’, "My current state is ’#{inspect state}’, and I’m happy"}]]
+    [data: [{'State', "My current state is '#{inspect state}', and I'm happy"}]]
   end
 end
