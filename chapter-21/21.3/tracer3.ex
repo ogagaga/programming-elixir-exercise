@@ -25,6 +25,10 @@ defmodule Test do
 
   def puts_sum_three(a,b,c), do: IO.inspect(a+b+c)
   def add_list(list), do: Enum.reduce(list, 0, &(&1+&2))
+
+# {:puts_sum_three, [line: 12],
+#  [{:a, [line: 12], nil}, {:b, [line: 12], nil}, {:c, [line: 12], nil}]}
+# {:add_list, [line: 13], [{:list, [line: 13], nil}]}  
 end
 
 Test.puts_sum_three(1,2,3)
